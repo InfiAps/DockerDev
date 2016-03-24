@@ -15,6 +15,8 @@ docker create -v /var/lib/mysql --name mysqldata joegus/joegus-devx /bin/true
 ```
 docker run -d -p 41233:22 -p 41234:80 -p 41235:3306 --volumes-from mysqldata joegus/joegus-devx
 ```
+Sometimes it won't start properly first time - I haven't found out why yet. I have a suspicion that it is because the ports are still in use after virtualbox har restored my snapshot. Changing 41234 to e.g. 41239 and then start again works fine. After stopping the container again and start with port 41234 again  - then it works again. Spooky..
+
 ## Backup/Restore database content from/to Docker volume
 #### Backup
 Mount current directory into the data container named "mysqldata" as /backup (sort of mysqldata:/backup) , then do a tar of mysqldata:/var/lib/mysql and place it in current local directory
